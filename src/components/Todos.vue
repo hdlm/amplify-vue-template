@@ -18,8 +18,12 @@ function listTodos() {
 }
 
 function createTodo() {
+  const content = window.prompt("Todo content");
+  const isDone = window.prompt("Is the todo done? (true/false)");
+
   client.models.Todo.create({
-    content: window.prompt("Todo content")
+    content: content,
+    isDone: isDone === 'true' ? true : false
   }).then(() => {
     // After creating a new todo, update the list of todos
     listTodos();
@@ -41,7 +45,7 @@ function createTodo() {
       <li 
         v-for="todo in todos" 
         :key="todo.id">
-        {{ todo.content }}
+        {{ todo.content }} - {{ todo.isDone ? 'Done' : 'Not Done' }}
       </li>
     </ul>
     <div>
