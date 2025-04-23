@@ -20,14 +20,20 @@ function listTodos() {
 function createTodo() {
   const content = window.prompt("Todo content");
   const isDone = window.prompt("Is the todo done? (true/false)");
+  const delayed = window.prompt("Is the todo delayed? (true/false)");
 
   client.models.Todo.create({
     content: content,
-    isDone: isDone === 'true' ? true : false
+    isDone: isDone === 'true' ? true : false,
+    delayed: delayed === 'true' ? true : false
   }).then(() => {
     // After creating a new todo, update the list of todos
     listTodos();
   });
+}
+
+function deleteTodo(id: string) {
+  client.models.Todo.delete({ id });
 }
     
 // fetch todos when the component is mounted
@@ -44,7 +50,8 @@ function createTodo() {
     <ul>
       <li 
         v-for="todo in todos" 
-        :key="todo.id">
+        :key="todo.id"
+        @click="deleteTodo(todo.id)" >
         {{ todo.content }} - {{ todo.isDone ? 'Done' : 'Not Done' }}
       </li>
     </ul>
