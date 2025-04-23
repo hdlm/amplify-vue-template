@@ -52,7 +52,7 @@ function deleteTodo(id: string) {
         v-for="todo in todos" 
         :key="todo.id"
         @click="deleteTodo(todo.id)" >
-        {{ todo.content }} - {{ todo.isDone ? 'Done' : 'Not Done' }}
+        {{ todo.content }} - {{ todo.isDone ? 'Done' : 'Not Done' }} - {{ todo.delayed ? 'Delayed' : 'Not Delayed' }}
       </li>
     </ul>
     <div>
